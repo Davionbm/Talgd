@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    background-color: slategrey;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-container {
+    background-color: white;
+    max-width: 700px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px;
+    margin: 20px;
+}
+
+h1 {
+    padding: 10px;
+
+}
+
+.form-container form .first-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form-container form .second-row,
+.form-container form .third-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+form .first-row input,
+form .third-row input {
+    width: 200px;
+    height: 35px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+form .second-row select,
+form .third-row select {
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-family: 'Poppins', sans-serif
+}
+
+.input-field {
+    margin: 0px 10px;
+}
+
+.learn {
+    padding: 10px;
+}
+
+.learn a {
+    text-decoration: none;
+    color: black;
+}
+
+.submit {
+    text-align: center;
+    margin: 30px;
+}
+
+.submit-btn {
+    width: 200px;
+    height: 35px;
+    border: none;
+    background-color: blue;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Poppins', sans-serif
+}
+
+.submit-btn:hover {
+    cursor: pointer;
+    background-color: rgb(92, 92, 200);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
