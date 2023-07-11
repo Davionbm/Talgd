@@ -7,59 +7,62 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="logo-header">
+        <img src="Talgd's-logo1.png" width="150px" height="50px">
+    </div>
     <div class="form-container">
-        <form>
+        <form id="myForm">
 
             <h1>Information</h1>
 
             <div class="first-row">
                 <div class="input-field">
-                    <label>Full Name</label>
-                    <input type="text" required>
+                    <label>Full Name</label><br>
+                    <input type="text" id="name">
                 </div>
 
                 <div class="input-field">
-                    <label>Email</label>
-                    <input type="email" required>
+                    <label>Email</label><br>
+                    <input type="email" id="email" required>
                 </div>
 
                 <div class="input-field">
-                    <label>Phone Number</label>
-                    <input type="number" required>
+                    <label>Phone Number</label><br>
+                    <input type="number" id="phone" required>
                 </div>
 
             </div>
             <div class="second-row">
                 <div class="input-field">
-                    <label>Gender</label>
-                    <select name="" id="">
+                    <label>Gender</label><br>
+                    <select name="" id="gender">
                         <option value="">Select</option> 
-                        <option value="">Male</option>
-                        <option value="">Female</option>
+                        <option value="Male" name="Male">Male</option>
+                        <option value="Female" name="Female">Female</option>
                     </select>
                 </div>
 
                 <div class="input-field">
-                    <label>Age Range</label>
-                    <select name="" id="">
+                    <label>Age Range</label><br>
+                    <select name="" id="age">
                      <option value="">Select</option>   
-                     <option value="">Below 18 years</option>
-                     <option value="">18-24</option>
-                     <option value="">25-30</option>
-                     <option value="">31-36</option>
-                     <option value="">37-45</option>
-                     <option value="">46 years and above</option>
+                     <option value="18" name="18">Below 18 years</option>
+                     <option value="18-24" name="18-24">18-24</option>
+                     <option value="25-30" name="25-30">25-30</option>
+                     <option value="31-36" name="31-36">31-36</option>
+                     <option value="37-45" name="37-45">37-45</option>
+                     <option value="46+" name="46+">46 years and above</option>
                     </select>
                 </div>
                 <div class="input-field">
-                    <label>Choose a Course</label>
-                    <select name="" id="">
+                    <label>Choose a Course</label><br>
+                    <select name="" id="course">
                      <option value="">Select</option>   
-                     <option value="">UI/UX Design</option>
-                     <option value="">Data Analysis</option>
-                     <option value="">Front-End Developer</option>
-                     <option value="">Product Management</option>
-                     <option value="">Graphic Design</option>
+                     <option value="UI/UXDesign" name="UI/UXDesign">UI/UX Design</option>
+                     <option value="DataAnalysis" name="DataAnalysis">Data Analysis</option>
+                     <option value="Front-End-Development" name="Front-End-Development">Front-End Developmentr</option>
+                     <option value="ProductManagement" name="ProductManagement">Product Management</option>
+                     <option value="GraphicDesign" name="GraphicDesign">Graphic Design</option>
                     </select>
                 </div>
 
@@ -67,33 +70,33 @@
             <div class="third-row">
 
                 <div class="input-field">
-                    <label>Mode of Learning</label>
-                    <select name="" id="">
+                    <label>Mode of Learning</label><br>
+                    <select name="" id="learning">
                      <option value="">Select</option>   
-                     <option value="">Physical Class (in Osogbo)</option>
-                     <option value="">Online Class</option>
+                     <option value="PhysicalClass" name="PhysicalClass">Physical Class (in Osogbo)</option>
+                     <option value="OnlineClass" name="OnlineClass">Online Class</option>
                     </select>
                 </div>
 
                 <div class="input-field">
-                    <label>Emergency Contact</label>
-                    <input type="number" required>
+                    <label>Emergency Contact</label><br>
+                    <input type="number" id="ephoneNumber" required>
                 </div>
 
                 <div class="input-field">
-                    <label>Talgd's Least Payment</label>
-                    <select name="" id="">
+                    <label>Talgd's Least Payment</label><br>
+                    <select name="payment" id="payment">
                         <option value="">Select</option> 
-                        <option value="">70%</option>
-                        <option value="">80%</option>
-                        <option value="">100%</option>
+                        <option value="70%" name="70%">70%</option>
+                        <option value="80%" name="80%">80%</option>
+                        <option value="100%" name="100%">100%</option>
                     </select>
                 </div>
 
             </div>
 
             <div class="submit">
-                <button type="submit" class="submit-btn">SUBMIT</button>
+                <input type="submit" class="submit-btn" value="Submit" onclick="fetchFormData()">
             </div>
 
             <div class="learn">
@@ -103,5 +106,218 @@
 
         </form>
     </div>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent form submission
+        
+          // Get the form data
+          var name = document.getElementById('name').value;
+          var email = document.getElementById('email').value;
+          var phone = document.getElementById('phone').value;
+          var gender = document.getElementById('gender').value;
+          var age = document.getElementById('age').value;
+          var course = document.getElementById('course').value;
+          var learning = document.getElementById('learning').value;
+          var ephoneNumber = document.getElementById('ephoneNumber').value;
+          var payment = document.getElementById('payment').value
+        
+          // Store the data in the database
+          saveFormData(name, email, phone, gender, age, course, learning, ephoneNumber, payment);
+        });
+        
+        
+        var databaseName = 'myDatabase';
+        var objectStoreName = 'formData';
+        
+        var request = window.indexedDB.open(databaseName, 1);
+        
+        request.onupgradeneeded = function(event) {
+          var db = event.target.result;
+        
+          // Create an object store
+          var objectStore = db.createObjectStore(objectStoreName, { autoIncrement: true });
+        
+          // Define the object store's data structure (optional)
+          objectStore.createIndex('name', 'name', { unique: false });
+          objectStore.createIndex('email', 'email', { unique: true });
+          objectStore.createIndex('phone', 'phone', { unique: true });
+        };
+        
+        request.onerror = function(event) {
+          console.log('Database error: ' + event.target.errorCode);
+        };
+        
+        
+        function saveFormData(name, email) {
+          var request = window.indexedDB.open(databaseName, 1);
+        
+          request.onsuccess = function(event) {
+            var db = event.target.result;
+        
+            // Start a transaction and get the object store
+            var transaction = db.transaction(objectStoreName, 'readwrite');
+            var objectStore = transaction.objectStore(objectStoreName);
+        
+            // Create an object with the form data
+            var formData = { name: name, email: email, phone: phone };
+        
+            // Add the object to the object store
+            var addRequest = objectStore.add(formData);
+        
+            addRequest.onsuccess = function(event) {
+              console.log('Form data saved successfully');
+            };
+        
+            addRequest.onerror = function(event) {
+              console.log('Error saving form data: ' + event.target.errorCode);
+            };
+        
+            // Close the transaction and database connection
+            transaction.oncomplete = function() {
+              db.close();
+            };
+          };
+        
+          request.onerror = function(event) {
+            console.log('Database error: ' + event.target.errorCode);
+          };
+        }
+        
+        
+        function fetchFormData() {
+          var request = window.indexedDB.open(databaseName, 1);
+        
+          request.onsuccess = function(event) {
+            var db = event.target.result;
+        
+            // Start a transaction and get the object store
+            var transaction = db.transaction(objectStoreName, 'readonly');
+            var objectStore = transaction.objectStore(objectStoreName);
+        
+            // Open a cursor to iterate over the objects in the object store
+            var cursorRequest = objectStore.openCursor();
+        
+            cursorRequest.onsuccess = function(event) {
+              var cursor = event.target.result;
+        
+              if (cursor) {
+                // Access the form data from the cursor's value property
+                var formData = cursor.value;
+        
+                // Do something with the form data
+                console.log('name: ' + formData.name);
+                console.log('email: ' + formData.email);
+                console.log('phone:' + formData.phone);
+                console.log('gender:' + formData.gender);
+                console.log('age:' + formData.age);
+                console.log('course:' + formData.course);
+                console.log('learning:' + formData.learning);
+                console.log('ephoneNumber:' + formData.ephoneNumber);
+                console.log('payment:' + formData.payment);
+        
+                // Move to the next cursor item
+                cursor.continue();
+              }
+            };
+        
+            cursorRequest.onerror = function(event) {
+              console.log('Error retrieving form data: ' + event.target.errorCode);
+            };
+        
+            // Close the transaction and database connection
+            transaction.oncomplete = function() {
+              db.close();
+            };
+          };
+        
+          request.onerror = function(event) {
+            console.log('Database error: ' + event.target.errorCode);
+          };
+        }
+        
+        function exportData() {
+          var request = window.indexedDB.open(databaseName, 1);
+        
+          request.onsuccess = function(event) {
+            var db = event.target.result;
+        
+            // Start a transaction and get the object store
+            var transaction = db.transaction(objectStoreName, 'readonly');
+            var objectStore = transaction.objectStore(objectStoreName);
+        
+            // Open a cursor to iterate over the objects in the object store
+            var cursorRequest = objectStore.openCursor();
+        
+            var data = []; // Array to store the form data
+        
+            cursorRequest.onsuccess = function(event) {
+              var cursor = event.target.result;
+        
+              if (cursor) {
+                // Access the form data from the cursor's value property
+                var formData = cursor.value;
+        
+                // Add the form data to the array
+                data.push(formData);
+        
+                // Move to the next cursor item
+                cursor.continue();
+              } else {
+                // All data has been retrieved
+        
+                // Convert the data to JSON string
+                var jsonData = JSON.stringify(data);
+        
+                // Create a Blob with the JSON data
+                var blob = new Blob([jsonData], { type: 'application/json' });
+        
+                // Create a temporary download link
+                var downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = 'formData.json';
+        
+                // Trigger the download
+                downloadLink.click();
+        
+                // Clean up the temporary download link
+                URL.revokeObjectURL(downloadLink.href);
+              }
+            };
+        
+            cursorRequest.onerror = function(event) {
+              console.log('Error retrieving form data: ' + event.target.errorCode);
+            };
+        
+            // Close the transaction and database connection
+            transaction.oncomplete = function() {
+              db.close();
+            };
+          };
+        
+          request.onerror = function(event) {
+            console.log('Database error: ' + event.target.errorCode);
+          };
+        }
+        
+        
+            </script>
+
+    <!-- <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        function sendEmail(){
+            Email.send({
+              Host : "smtp.gmail.com",
+              Username : "johnowosenijr@gmail.com",
+              Password : "klbgpxhtlkzocudm",
+              To : 'owosenijohnjr@gmail.com',
+              From : document.getElementById("email").value,
+              Subject : "Test Run",
+              Body : "And this is the body"
+}).then(
+  message => alert(message)
+);
+        }
+    </script> -->
 </body>
 </html>
